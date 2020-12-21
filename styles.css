@@ -4,6 +4,14 @@
     box-sizing: border-box;
 }
 body { background-color: rgb(238, 231, 212);}
+#edit-button {
+    width: 2rem;
+    background: none;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    margin-left: 0.175rem;
+}
 #new-note-button {
     background-color: #929697;
     color: white;
@@ -28,7 +36,7 @@ body { background-color: rgb(238, 231, 212);}
     height: 20rem;
     flex-direction: column;
     border: 1px #d6d0bc solid;
-    box-shadow: gray 2px 2px;
+    box-shadow: gray 0.15rem 0.15rem;
     display: inline-block;
 }
 .nav {
