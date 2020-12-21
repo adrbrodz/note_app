@@ -1,13 +1,8 @@
 var noteList = [];
 var id = 0;
 
-function getNoteId() {
-    id += 1;
-    return id;
-}
-
 function createEmptyNote() {
-    const noteId = getNoteId();
+    const noteId = noteList.length;
     document.getElementById("savedNotes").innerHTML +=
     `<div class="note" id="note">
         <div class="note-body">
@@ -15,20 +10,24 @@ function createEmptyNote() {
                 <button id="delete-button" onclick="deleteNote(${noteId})">x</button>
             </div>
             <div id="note-text-area">
-                <textarea rows="10" placeholder="Start writing your note..." id="note-text"></textarea>
+                <textarea rows="10" placeholder="Start writing your note..." id="note-text-${noteId}"></textarea>
             </div>
-            <button id="save-button" onclick="saveNote()">Save</button>
+            <button id="save-button" onclick="saveNote(${noteId})">Save</button>
         </div>
     </div>`
     noteList.push({noteId: noteId, text: ""})
+    clearNotes();
+    generateNotes();
 };
 
 function deleteNote(noteId) {
     noteList = noteList.filter( note => note.noteId != noteId)
     clearNotes();
+    id = noteList.length;
     generateNotes();
 }
 function clearNotes() {
+    id = 0;
     document.getElementById("savedNotes").innerHTML = "";
 }
 function generateNotes() {
@@ -47,13 +46,19 @@ function addNewNote(noteId, noteText) {
                 <button id="delete-button" onclick="deleteNote(${noteId})">x</button>
             </div>
             <div id="note-text-area">
-                <textarea rows="10" placeholder="Start writing your note..." id="note-text">${noteText}</textarea>
+                <textarea rows="10" placeholder="Start writing your note..." id="note-text-${noteId}">${noteText}</textarea>
             </div>
-            <button id="save-button" onclick="saveNote()">Save</button>
+            <button id="save-button" onclick="saveNote(${noteId})">Save</button>
         </div>
     </div>`
 };
 
-function saveNote() {
-    
+function saveNote(noteId) {
+    const noteText = document.getElementById("note-text-"+noteId).value;
+    noteList.forEach(function(note) {
+        if (note.noteId === noteId ) {
+            note.text = noteText;
+        }
+    });
+    console.log(noteList)
 }
